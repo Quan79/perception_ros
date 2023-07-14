@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+
+  <!-- Load Parameter -->
+  
+  <param name="yolov5_path"       value="$(find ros_yolov5)/yolov5"/>
+  <param name="use_cpu"           value="true" />
+
+  <!-- Start yolov5 and ros wrapper -->
+  <node pkg="ros_yolov5" type="yolo_v5.py" name="ros_yolov5" output="screen" >
+    <param name="weight_path"       value="$(find ros_yolov5)/weights/best.pt"/>
+
+    <param name="image_topic"       value="/camera_front/color/image_raw" />
+    <param name="depth_topic"       value="/camera_front/depth/image_rect_raw"/>
+
+    <param name="color_camera_info_topic" value="/camera_front/color/camera_info"/>
+    <param name="depth_camera_info_topic" value="/camera_front/depth/camera_info"/>
+    
+    <param name="pub_topic"         value="/yolov5/BoundingBoxes" />
+    <param name="camera_frame"      value="camera_color_frame"/>
+    <param name="conf"              value="0.55" />
+  </node>
+
+</launch>
